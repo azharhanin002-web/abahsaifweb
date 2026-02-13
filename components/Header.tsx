@@ -108,14 +108,28 @@ export default function Header() {
       <span style={{ fontSize: '14px' }}>🔥</span> HOT NEWS
     </div>
 
-    {/* Area Teks Berjalan */}
-    <div style={{ flex: 1, padding: '0 15px' }}>
-      <marquee scrollamount="5" style={{ fontSize: '13px', color: '#444', fontWeight: '500', display: 'block' }}>
-        <span style={{ marginRight: '60px' }}>• Selamat Datang di ABAHSAIF.WEB.ID - Wadah Menggali Ilmu dan Membuka Cahaya Kebajikan.</span>
-        <span style={{ marginRight: '60px' }}>• Update: Simak Rubrik Khutbah Terbaru untuk Persiapan Jemaah.</span>
-        <span style={{ marginRight: '60px' }}>• Baru: Panduan Dzikir dan Doa Harian Lengkap Kini Tersedia.</span>
-      </marquee>
-    </div>
+    <div style={{ 
+  flex: 1, 
+  padding: '0 15px', 
+  overflow: 'hidden', 
+  whiteSpace: 'nowrap',
+  position: 'relative' 
+}}>
+  <div className="running-text" style={{ 
+    display: 'inline-block',
+    animation: 'marquee 20s linear infinite' 
+  }}>
+    <span style={{ marginRight: '60px' }}>• Selamat Datang di ABAHSAIF.WEB.ID ...</span>
+    <span style={{ marginRight: '60px' }}>• Update: Simak Rubrik Khutbah Terbaru ...</span>
+  </div>
+
+  <style jsx>{`
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+  `}</style>
+</div>
 
   </div>
 </div>
