@@ -8,6 +8,8 @@
 import { NextStudio } from 'next-sanity/studio'
 import config from '@/sanity.config'
 
+export const runtime = 'edge';
+
 export default function StudioPage() {
   return (
     // Memastikan dashboard tampil satu layar penuh tanpa scroll bar ganda
