@@ -1,6 +1,6 @@
 import { getPostsByCategory } from "@/lib/sanity.query";
 import Link from "next/link";
-export const runtime = 'edge';
+
 
 /**
  * Komponen Halaman Kategori

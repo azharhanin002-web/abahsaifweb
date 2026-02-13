@@ -2,7 +2,7 @@ import { getSinglePost } from "@/lib/sanity.query";
 import { PortableText } from "@portabletext/react";
 import Link from "next/link";
 
-export const runtime = 'edge';
+
 
 // Konfigurasi khusus untuk merender komponen Rich Text dari Sanity
 const ptComponents = {
