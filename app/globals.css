@@ -40,33 +40,127 @@ ul { list-style: none; }
   padding: 0 15px;
 }
 
-/* ================= HEADER SYSTEM ================= */
-.header-container { 
-  width: 100%; 
-  background: #fff; 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+/* ================= TOPBAR STYLING - POSISI BARU ================= */
+.top-bar {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
 }
 
-.flex-row-center { 
-  display: flex !important; 
-  align-items: center; 
-  justify-content: space-between; 
-  height: 46px; 
+.flex-row-center {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between; /* Menjaga jarak antar 3 grup */
 }
 
-.top-bar { 
-  background: #f2f2f2;
-  border-bottom: 1px solid #eee; 
+/* KIRI: Menu */
+.top-left-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1; /* Memberi ruang agar seimbang */
+}
+
+/* TENGAH: Search */
+.top-center-search {
+  display: flex;
+  justify-content: center;
+  flex: 2; /* Search box lebih lebar di tengah */
+}
+
+.search-pill-container {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: 2px 2px 2px 15px;
+  width: 100%;
+  max-width: 350px; /* Batas lebar search tengah */
+}
+
+/* KANAN: Tombol */
+.top-right-group {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex: 1; /* Memberi ruang agar seimbang */
+}
+
+/* Komponen Visual Tambahan */
+.menu-circle-icon {
+  background: var(--abah-blue);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-label { font-weight: 800; color: #444; font-size: 14px; }
+
+.btn-blue-pill {
+  background: var(--abah-blue);
+  color: #fff !important;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  border: none;
+}
+
+.btn-outline-pill {
+  color: var(--abah-blue) !important;
+  border: 1.5px solid var(--abah-blue);
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-weight: 700;
   font-size: 12px;
 }
 
-.logo-section { padding: 25px 0; text-align: center; }
+.search-pill-input { border: none; outline: none; width: 100%; font-size: 13px; }
+
+.search-pill-button {
+  background: var(--abah-blue);
+  border: none;
+  width: 34px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ================= LOGO SECTION ================= */
+.logo-flex-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 15px;
+}
+.logo-rounded { border-radius: 50%; }
+
+/* ================= LOGO SECTION ================= */
+.logo-section { padding: 25px 0; background: #fff; }
+
 .logo-flex-wrapper { 
   display: flex !important; 
-  flex-direction: row !important; 
-  align-items: center; 
-  justify-content: center;
-  gap: 15px; 
+  flex-direction: row !important; /* WAJIB: Kunci sejajar horisontal */
+  align-items: center !important; 
+  justify-content: flex-start !important; 
+  gap: 20px; 
+  width: fit-content;
+}
+
+.logo-rounded { border-radius: 50%; flex-shrink: 0; }
+
+.logo-text-box {
+  display: flex !important;
+  flex-direction: column !important;
+  text-align: left;
 }
 
 .main-logo-title { 
@@ -76,11 +170,21 @@ ul { list-style: none; }
   margin: 0; 
   line-height: 1; 
   font-style: italic;
+  letter-spacing: -1px;
 }
+
 .main-logo-title .green { color: var(--abah-green); }
 .main-logo-title .gray { color: #ccc; font-weight: 300; }
 
-/* Navbar & Hover Kuning */
+.tagline {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0 0 0;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* ================= NAVBAR & LAYOUT ================= */
 .main-nav { 
   background: var(--abah-blue); 
   border-bottom: 3px solid var(--abah-gold); 
@@ -89,12 +193,7 @@ ul { list-style: none; }
   z-index: 1000;
 }
 
-.nav-menu-list { 
-  display: flex !important; 
-  overflow-x: auto; 
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
+.nav-menu-list { display: flex !important; overflow-x: auto; scrollbar-width: none; }
 .nav-menu-list::-webkit-scrollbar { display: none; }
 
 .nav-anchor { 
@@ -108,38 +207,11 @@ ul { list-style: none; }
   white-space: nowrap; 
   text-transform: uppercase;
 }
-.nav-anchor:hover { 
-  background: var(--abah-gold) !important; 
-  color: #004a8e !important; 
-}
+.nav-anchor:hover { background: var(--abah-gold) !important; color: #004a8e !important; }
 
-/* ================= LAYOUT UTAMA ================= */
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 30px;
   margin-top: 25px;
 }
-
-@media (max-width: 900px) {
-  .content-grid { grid-template-columns: 1fr; }
-}
-
-/* ================= ARTIKEL & PROSE ================= */
-.prose-content p {
-  margin-bottom: 20px !important;
-  line-height: 1.8;
-  font-size: 18px;
-}
-
-.prose-content h2 {
-  margin-top: 30px;
-  margin-bottom: 15px;
-  color: var(--abah-blue);
-  font-weight: bold;
-}
-
-/* Efek Hover Postingan */
-.post-card-group { transition: all 0.2s ease-in-out; }
-.post-card-group:hover .post-title-heading { color: var(--abah-blue) !important; }
-.post-card-group:hover .post-thumb-img { transform: scale(1.05); }
