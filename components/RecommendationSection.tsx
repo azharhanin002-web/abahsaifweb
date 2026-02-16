@@ -1,16 +1,35 @@
-// Ganti import fungsi ke getAllPosts agar mengambil semua kategori
+"use client"; // Ubah menjadi Client Component untuk menangani logika acak
+
 import { getAllPosts } from "@/lib/sanity.query";
 import Link from "next/link";
 import LatestArticlesSidebar from "./LatestArticlesSidebar";
+import { useState, useEffect } from "react";
 
-export default async function RecommendationSection() {
-  // 1. Mengambil semua data postingan (Berita, Artikel, Khutbah, dll)
-  const allData = await getAllPosts();
+export default function RecommendationSection() {
+  const [recommendedData, setRecommendedData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // 2. Logika Random: Mengacak urutan data menggunakan Fisher-Yates shuffle atau sort sederhana
-  const recommendedData = [...allData]
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 6); // Ambil 6 item teratas setelah diacak
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const allData = await getAllPosts();
+        // Logika Random dilakukan di sisi Client setelah komponen termuat
+        const shuffled = [...allData]
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 6);
+        
+        setRecommendedData(shuffled);
+      } catch (error) {
+        console.error("Gagal mengambil data rekomendasi:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  // Jika masih loading, kita beri placeholder agar layout tidak melompat (shimmer)
+  if (loading) return <div style={{ minHeight: '300px' }}>Memuat rekomendasi...</div>;
 
   return (
     <section style={{ marginTop: '50px', paddingTop: '30px', borderTop: '1px solid #eee' }}>
@@ -34,7 +53,6 @@ export default async function RecommendationSection() {
                 key={item._id} 
                 style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
               >
-                {/* Thumbnail Gambar Dinamis */}
                 <div style={{ 
                   width: '100%', 
                   height: '140px', 
@@ -50,7 +68,6 @@ export default async function RecommendationSection() {
                   />
                 </div>
 
-                {/* Kategori Otomatis - Warna Hijau untuk Artikel, Merah untuk Berita */}
                 <span style={{ 
                   fontSize: '12px', 
                   color: item.category === 'berita' ? '#e64d31' : '#28a745', 
@@ -62,7 +79,6 @@ export default async function RecommendationSection() {
                   {item.category}
                 </span>
 
-                {/* Judul Konten */}
                 <h3 style={{ 
                   fontSize: '14px', 
                   fontWeight: 'bold', 
@@ -80,7 +96,6 @@ export default async function RecommendationSection() {
             ))}
           </div>
 
-          {/* Fallback jika data kosong */}
           {recommendedData.length === 0 && (
             <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>
               Belum ada konten yang tersedia.

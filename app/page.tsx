@@ -8,6 +8,9 @@ import LatestPosts from "@/components/LatestPosts";
 import KhutbahSidebar from "@/components/KhutbahSidebar";
 import InfoDakwah from "@/components/InfoDakwah";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Data akan selalu diperiksa ulang setiap kali halaman dibuka
+
 export default async function Home() {
   const khutbahData = await getKhutbahPosts() || [];
 

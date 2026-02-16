@@ -2,9 +2,11 @@
 import { client } from "./sanity.client";
 import { groq } from "next-sanity";
 
+// Konfigurasi revalidate agar data selalu fresh di web (Production)
+const revalidateConfig = { next: { revalidate: 0 } };
+
 /**
  * 1. Ambil SEMUA postingan terbaru (Berita, Artikel, Khutbah, dll)
- * Untuk komponen LatestPosts di Homepage.
  */
 export async function getAllPosts() {
   return client.fetch(
@@ -15,7 +17,9 @@ export async function getAllPosts() {
       "image": mainImage.asset->url,
       publishedAt,
       "category": coalesce(categories[0]->title, category, "Umum")
-    }`
+    }`,
+    {},
+    revalidateConfig
   );
 }
 
@@ -31,7 +35,9 @@ export async function getNewsPosts() {
       "image": mainImage.asset->url,
       publishedAt,
       "category": "Berita"
-    }`
+    }`,
+    {},
+    revalidateConfig
   );
 }
 
@@ -47,7 +53,9 @@ export async function getArticlePosts() {
       "image": mainImage.asset->url,
       publishedAt,
       "category": "Artikel"
-    }`
+    }`,
+    {},
+    revalidateConfig
   );
 }
 
@@ -65,7 +73,8 @@ export async function getPostsByCategory(categoryName: string) {
       "category": coalesce(categories[0]->title, category, $categoryName),
       "excerpt": array::join(string::split(pt::text(body), "")[0...150], "") + "..."
     }`,
-    { categoryName: `${categoryName}` }
+    { categoryName },
+    revalidateConfig
   );
 }
 
@@ -85,7 +94,8 @@ export async function getSinglePost(slug: string) {
       body,
       "author": author->name
     }`,
-    { slug }
+    { slug },
+    revalidateConfig
   );
 }
 
@@ -101,7 +111,9 @@ export async function getKhutbahPosts() {
       "image": mainImage.asset->url,
       publishedAt,
       "category": "Khutbah"
-    }`
+    }`,
+    {},
+    revalidateConfig
   );
 }
 
@@ -116,6 +128,7 @@ export async function getRelatedPosts(category: string, currentSlug: string) {
       "slug": slug.current,
       "image": mainImage.asset->url
     }`,
-    { category, currentSlug }
+    { category, currentSlug },
+    revalidateConfig
   );
 }
